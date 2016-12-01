@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{  parent() }} Resultado {% endblock %}
+
+{% block body %}
+
+   <div> El primer numero que has introducido es: {{ op1 }} <br>
+    El segundo numero introducido ha sido: {{ op2 }}   <br>
+    {{ op1 }} {{ operacion }} {{ op2 }} da el resultado de:  {{ resultado }}
+   </div>
+
+
+
+{% endblock %}

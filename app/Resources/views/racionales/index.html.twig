@@ -1,0 +1,10 @@
+{% extends '::base.html.twig' %}
+{%  block tittle %}{{ parent() }} Form {% endblock %}
+{%  block body  %}
+    <ul>
+        <il><a href="{{ path('app_rational_index') }}">Home</a> </il><br>
+        <il><a href="{{ path('app_rational_mult') }}">Multiplicar</a></il><br>
+        <il><a href="{{ path('app_rational_div') }}">Dividir</a></il><br>
+    </ul>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block title %} {{  parent() }} Resultado {% endblock %}
+
+{% block body %}
+
+    <div> El primer racional que has introducido es: {{ r1 }} <br>
+        El segundo racional introducido ha sido: {{ r2 }}   <br>
+        {{ r1 }} {{ operacion }} {{ r2 }} da el resultado de:  {{ resultado }}
+    </div>
+
+
+
+{% endblock %}

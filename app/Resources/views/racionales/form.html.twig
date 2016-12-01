@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+
+{% block title %}{{  parent() }} Formulario {% endblock %}
+{%  block body %}
+    <form action="{{ path(action) }}" method="post" >
+        <input type="number" name="n1" value="n1"/> </br>
+        <input type="number" name="d1" value="d1"/> </br>
+        <input type="number" name="n2" value="n2"/> </br>
+        <input type="number" name="d2" value="d2"/> </br>
+        <input type="submit" value="enviar"/>
+    </form>
+
+{% endblock %}

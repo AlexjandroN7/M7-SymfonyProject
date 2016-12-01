@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+{%  block tittle %}{{ parent() }} Form {% endblock %}
+{%  block body  %}
+    <ul>
+            <il><a href="{{ path('app_calculator_index') }}">Home</a> </il><br>
+            <il><a href="{{ path('app_calculator_sum') }}">Sumar</a></il><br>
+            <il><a href="{{ path('app_calculator_rest') }}">Restar</a></il><br>
+            <il><a href="{{ path('app_calculator_mult') }}">Multiplicar</a></il><br>
+            <il><a href="{{ path('app_calculator_div') }}">Dividir</a></il><br>
+    </ul>
+
+{% endblock %}
