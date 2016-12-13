@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Product
  *
@@ -23,20 +23,27 @@ class Product
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="debes rellenar el campo!")
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\Length(
+     *     min="3",
+     *     max="15",
+     *     minMessage="El mensaje es demasiado corto!",
+     *     maxMessage="El mensaje se pasa de largo!"
+     * )
+     * @Assert\NotBlank(message="Debes rellenar el campo!")
      * @ORM\Column(name="description", type="string", length=255, )
      */
     private $description;
 
     /**
      * @var string
+     * @Assert\NotBlank(message="Debes rellenar el campo!")
      *
      * @ORM\Column(name="price", type="decimal", precision=6, scale=2)
      */
