@@ -9,6 +9,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Form\ProductType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,8 +74,14 @@ class ProductController extends Controller
      */
     public function añadirAction()
     {
+            $product = new Product();
+            $form = $this->createForm(ProductType::class, $product);
+        return $this->render(':product:form.html.twig',
+        [
+            'form'      => $form->createView(),
+            'action'    => $this->generateUrl('app_product_doAdd'),
 
-        return $this->render(':product:add.html.twig');
+            ]);
     }
 
     /**
@@ -87,18 +95,23 @@ class ProductController extends Controller
     {
 
         $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
 
-        $product->setName($request->request->get('name'));
-        $product->setDescription($request->request->get('desc'));
-        $product->setPrice($request->request->get('price'));
+        $form->handleRequest($request);
 
-        $m = $this->getDoctrine()->getManager();
-        $m->persist($product);
-        $m->flush();
+        if ($form->isValid()) {
+            $m = $this->getDoctrine()->getManager();
+            $m->persist($product);
+            $m->flush();
 
-        $this->addFlash('messages','product created');
+            return $this->redirectToRoute('app_product_index');
+        }
 
-        return $this->redirectToRoute('app_product_index');
+        return $this->render(':product:form.html.twig',
+        [
+            'form'  => $form->createView(),
+            'action' => $this->generateUrl('app_product_doAdd')
+        ]);
     }
 
     /**
@@ -115,40 +128,44 @@ class ProductController extends Controller
 
         $prod = $repo->find($id);
 
-        return $this->render(':product:update.html.twig',
+        $form = $this->createForm(ProductType::class, $prod);
+
+        return $this->render(':product:form.html.twig',
         [
-            'prod' =>  $prod,
+            'form' =>  $form->createView(),
+            'action'    => $this->generateUrl('app_product_doUpdate', ['id' => $id])
         ]);
     }
 
     /**
      * @Route (
-     *     path="/doUpdate",
+     *     path="/doUpdate/{id}",
      *     name="app_product_doUpdate")
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
-    public function doUpdateAction(Request $request)
+    public function doUpdateAction($id, Request $request)
     {
         $m = $this->getDoctrine()->getManager();
         $repo = $m->getRepository('AppBundle:Product');
-
-        $id = $request->request->get('id');
-        $name = $request->request->get('name');
-        $desc = $request->request->get('desc');
-        $price = $request->request->get('price');
-
         $prod = $repo->find($id);
+        $form = $this->createForm(ProductType::class, $prod);
 
-        $prod->setName($name);
-        $prod->setDescription($desc);
-        $prod->setPrice($price);
+        $form->handleRequest($request);
 
-        $m->flush();
-        $this->addFlash('messages', 'Product Updated');
+        if ($form->isValid()){
+            $m->flush();
 
-        return $this->redirectToRoute('app_product_index');
+            return $this->redirectToRoute('app_product_index');
+        }
+
+        return $this->render(':product:form.html.twig',
+            [
+                'form'  => $form->createView(),
+                'action' => $this->generateUrl('app_product_doUpdate', ['id' => $id]),
+            ]);
 
     }
 

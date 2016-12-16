@@ -15,10 +15,10 @@
             </ul>
         </div>
             <div>{{ form_label(form.description) }} : {{ form_widget(form.description) }}</div>
-            <div>{{ form_label(form.name) }}: {{ form_widget(form.name) }}</div>
-            <div>{{ form.errors(form.price) }}{{ form_label(form.price) }}: {{ form_widget(form.price) }}</div>
+            <div>{{ form_label(form.name) }}: {{ form_widget(form.name, {'attr' : { 'class' : 'anyClass2'}}) }}</div>
+            <div>{{ form_label(form.price) }}: {{ form_widget(form.price) }}</div>
                 {{ form_rest(form) }}
-                <div><input type="submit" value="Guardar"></div>
+
 
     </form>
 </div>
