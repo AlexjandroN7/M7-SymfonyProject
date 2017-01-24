@@ -7,12 +7,7 @@
         <div>
             {{ dump(form.vars.value) }}
 
-            <ul>
 
-                {% for error in form.vars.errors %}
-                    <li>{{ error.message }}</li>
-                {% endfor %}
-            </ul>
         </div>
             <div>{{ form_label(form.description) }} : {{ form_widget(form.description) }}</div>
             <div>{{ form_label(form.name) }}: {{ form_widget(form.name, {'attr' : { 'class' : 'anyClass2'}}) }}</div>
